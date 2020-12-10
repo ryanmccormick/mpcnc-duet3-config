@@ -8,10 +8,11 @@ M584 X0:1 Y2:3 Z4              ; set drive mapping
 M574 X1 S1 P"io1.in+io2.in"    ; configure active-high endstop for low end on X via pin io0.in
 M574 Y1 S1 P"io3.in+io4.in"    ; configure active-high endstop for low end on Y via pin io2.in
 
-G1 H1 X-0 Y-0 F1800            ; move quickly to X and Y axis endstops and stop there (first pass)
+G1 H1 X-900 Y-900 F1800        ; move quickly to X and Y axis endstops and stop there (first pass)
 G1 H1 X-5 Y-5 F6000            ; go back a few mm
-G1 H1 X-0 Y-0 F360             ; move slowly to X and Y axis endstops once more (second pass)
+G1 H1 X-900 Y-900 F360         ; move slowly to X and Y axis endstops once more (second pass)
 G90                            ; absolute positioning
+G92 X0 Y0                      ; Set X and Y to zero position
 
 ;G1 H2 Z5 F6000                ; lift Z relative to current position
 ;G91                           ; relative positioning

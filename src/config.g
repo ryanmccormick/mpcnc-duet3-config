@@ -27,7 +27,7 @@ M906 X800 Y800 Z800 E800 I30            ; set motor currents (mA) and motor idle
 M84 S30                                 ; Set idle timeout
 
 ; Axis Limits
-M208 X0 Y0 Z0 S1                        ; set axis minimum
+M208 X0 Y0 Z-100                        ; set axis minimum
 M208 X820 Y820 Z80 S0                   ; set axis maximum
 
 ; Endstops
@@ -35,12 +35,12 @@ M574 X1 S1 P"io1.in+io2.in"             ; configure active-high endstop for low 
 M574 Y1 S1 P"io3.in+io4.in"             ; configure active-high endstop for low end on Y via pin io2.in
 
 ; Z-Probe
-M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
-G31 Z1.5
+;M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
+;G31 Z1.5
 
 ; CNC
 M453 C"out0" F100 						; Set into cnc mode
-G54										; Use Workspace coordinate system
+;G54										; Use Workspace coordinate system
 M564 S0 H0								; Allow movement without homing (without axis maxima)
 M575 P1 S1 B57600						; Configure paneldue output for CNC Pendant Use
 
