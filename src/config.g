@@ -8,7 +8,9 @@
 G90                                     ; send absolute coordinates...
 M83                                     ; ...but relative extruder moves
 M550 P"Duet 3"                          ; set printer name
-M453 C"out0" F100 						; Set into cnc mode
+
+; Dual X and Dual Y
+M584 X0:1 Y2:3 Z4                       ; set drive mapping
 
 ; Drives
 M569 P0 S1                              ; XA - physical drive 0.0 goes forwards
@@ -16,7 +18,6 @@ M569 P1 S0                              ; XB - physical drive 0.1 goes backwards
 M569 P2 S0                              ; YA - physical drive 0.2 goes backwards
 M569 P3 S1                              ; YB - physical drive 0.3 goes forwards
 M569 P4 S1                              ; Z - physical drive 0.3 goes forwards
-M584 X0:1 Y2:3 Z4                		; set drive mapping
 M350 X16 Y16 Z16 I1                     ; configure microstepping with interpolation
 M92 X100.00 Y100.00 Z400.00             ; set steps per mm
 M566 X900.00 Y900.00 Z60.00             ; set maximum instantaneous speed changes (mm/min)
@@ -34,8 +35,14 @@ M574 X1 S1 P"io1.in+io2.in"             ; configure active-high endstop for low 
 M574 Y1 S1 P"io3.in+io4.in"             ; configure active-high endstop for low end on Y via pin io2.in
 
 ; Z-Probe
-; M558 P0 H5 F120 T6000                 ; disable Z probe but set dive height, probe speed and travel speed
-; M557 X15:215 Y15:195 S20              ; define mesh grid
+M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
+G31 Z1.5
+
+; CNC
+M453 C"out0" F100 						; Set into cnc mode
+G54										; Use Workspace coordinate system
+M564 S0 H0								; Allow movement without homing (without axis maxima)
+M575 P1 S1 B57600						; Configure paneldue output for CNC Pendant Use
 
 ; Heaters
 
