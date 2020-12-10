@@ -27,7 +27,7 @@ M906 X800 Y800 Z800 E800 I30            ; set motor currents (mA) and motor idle
 M84 S30                                 ; Set idle timeout
 
 ; Axis Limits
-M208 X0 Y0 Z-100                        ; set axis minimum
+M208 X0 Y0 Z-100 S1                     ; set axis minimum
 M208 X820 Y820 Z80 S0                   ; set axis maximum
 
 ; Endstops
