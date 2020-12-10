@@ -7,6 +7,7 @@
 ; M83                  ; relative extruder moves
 ; G1 E10 F3600         ; extrude 10mm of filament
 
+; CNC Resume Config
 M3 R1                        ; Restore the spindle speed from before the pause
 G4 S10                       ; Wait for the spindle the get up to speed
 G1 R1 X0 Y0 Z5 F6000         ; Go to 5mm above position of the last cut move
