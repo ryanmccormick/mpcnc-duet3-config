@@ -14,4 +14,13 @@
 
 G91                        ; relative positioning
 
+; Z-Probe
+;M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
+
+
 M584 X0:1 Y2:3 Z4          ; set drive mapping
+M574 Z1 S1 P"!io7.in"      ; configure active-high endstop for low end on Z via pin io7.in
+
+G1 H1 Z-10 F1800
+;G31 Z1.5
+G92 Z19

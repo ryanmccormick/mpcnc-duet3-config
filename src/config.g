@@ -17,7 +17,7 @@ M569 P0 S1                              ; XA - physical drive 0.0 goes forwards
 M569 P1 S0                              ; XB - physical drive 0.1 goes backwards
 M569 P2 S0                              ; YA - physical drive 0.2 goes backwards
 M569 P3 S1                              ; YB - physical drive 0.3 goes forwards
-M569 P4 S1                              ; Z - physical drive 0.3 goes forwards
+M569 P4 S0                              ; Z - physical drive 0.3 goes forwards
 M350 X16 Y16 Z16 I1                     ; configure microstepping with interpolation
 M92 X100.00 Y100.00 Z400.00             ; set steps per mm
 M566 X900.00 Y900.00 Z60.00             ; set maximum instantaneous speed changes (mm/min)
@@ -28,11 +28,12 @@ M84 S30                                 ; Set idle timeout
 
 ; Axis Limits
 M208 X0 Y0 Z-100 S1                     ; set axis minimum
-M208 X820 Y820 Z80 S0                   ; set axis maximum
+M208 X825 Y825 Z80 S0                   ; set axis maximum
 
 ; Endstops
 M574 X1 S1 P"io1.in+io2.in"             ; configure active-high endstop for low end on X via pin io0.in
 M574 Y1 S1 P"io3.in+io4.in"             ; configure active-high endstop for low end on Y via pin io2.in
+M574 Z1 S1 P"!io7.in"                   ; configure active-high endstop for low end on Z via pin io7.in
 
 ; Z-Probe
 ;M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
@@ -40,9 +41,9 @@ M574 Y1 S1 P"io3.in+io4.in"             ; configure active-high endstop for low 
 
 ; CNC
 M453 C"out0" F100 						; Set into cnc mode
-;G54										; Use Workspace coordinate system
+;G54									; Use Workspace coordinate system
 M564 S0 H0								; Allow movement without homing (without axis maxima)
-M575 P1 S1 B57600						; Configure paneldue output for CNC Pendant Use
+;M575 P1 S1 B57600						; Configure paneldue output for CNC Pendant Use
 
 ; Heaters
 
@@ -54,5 +55,3 @@ G10 P0 X0 Y0 Z0                         ; set tool 0 axis offsets
 G10 P0 R0 S0                            ; set initial tool 0 active and standby temperatures to 0C
 
 ; Custom settings are not defined
-
-
