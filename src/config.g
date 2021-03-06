@@ -21,14 +21,14 @@ M569 P4 S0                              ; Z - physical drive 0.3 goes forwards
 M350 X16 Y16 Z16 I1                     ; configure microstepping with interpolation
 M92 X100.00 Y100.00 Z400.00             ; set steps per mm
 M566 X900.00 Y900.00 Z60.00             ; set maximum instantaneous speed changes (mm/min)
-M203 X6000.00 Y6000.00 Z180.00          ; set maximum speeds (mm/min)
+M203 X10000.00 Y10000.00 Z180.00        ; set maximum speeds (mm/min)
 M201 X500.00 Y500.00 Z20.00             ; set accelerations (mm/s^2)
 M906 X800 Y800 Z800 E800 I30            ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                 ; Set idle timeout
 
 ; Axis Limits
 M208 X0 Y0 Z-100 S1                     ; set axis minimum
-M208 X825 Y825 Z80 S0                   ; set axis maximum
+M208 X720 Y720 Z80 S0                   ; set axis maximum
 
 ; Endstops
 M574 X1 S1 P"io1.in+io2.in"             ; configure active-high endstop for low end on X via pin io0.in
@@ -39,19 +39,26 @@ M574 Z1 S1 P"!io7.in"                   ; configure active-high endstop for low 
 ;M558 P8 C"!io7.in" H10 F120 T3000      ; Z probe connected to E0 endstop input
 ;G31 Z1.5
 
-; CNC
-M453 C"out0" F100 						; Set into cnc mode
+; M950 P0 C"out1" 						; create bed heater output on out1 and map it to sensor 0
+M950 P0 C"out2" 						; create vacuum control
+
 ;G54									; Use Workspace coordinate system
-M564 S0 H0								; Allow movement without homing (without axis maxima)
-;M575 P1 S1 B57600						; Configure paneldue output for CNC Pendant Use
+;M564 S0 H0								; Allow movement without homing (without axis maxima)
+M575 P0 S0 B57600						; Configure paneldue output for CNC Pendant Use
 
 ; Heaters
 
 ; Fans
 
 ; Tools
-M563 P0 D0 F0                           ; define tool 0
+;M563 P0 D0 F0                          ; define tool 0
+M563 P0 D0 F0 S"Spindle"                ; define tool 0
 G10 P0 X0 Y0 Z0                         ; set tool 0 axis offsets
 G10 P0 R0 S0                            ; set initial tool 0 active and standby temperatures to 0C
 
+; CNC
+M453 C"nil+out1+nil" T0;      								; Set into cnc mode
+
 ; Custom settings are not defined
+
+
